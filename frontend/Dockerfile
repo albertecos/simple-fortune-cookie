@@ -4,7 +4,9 @@ WORKDIR /app
 
 # Download Go modules
 
-RUN go mod download
+# RUN go mod download
+COPY go.mod ./
+
 
 # Copy the source code
 COPY *.go ./

@@ -1,0 +1,14 @@
+services:
+  backend:
+    image: backend_image
+    build: ./backend/
+    ports:
+      - 8080:9000
+  
+  frontend:
+    image: frontend_image
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
