@@ -1,0 +1,19 @@
+services:
+  backend:
+    image: backend_image
+    build: ./backend/
+    environment:
+      REDIS_DNS: "localhost"
+  
+  frontend:
+    image: frontend_image
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    environment:
+      BACKEND_PORT: "9000"
+      BACKEND_DNS: "backend"
+    depends_on: 
+      - backend
+    ports:
+      - "8080:8080"
