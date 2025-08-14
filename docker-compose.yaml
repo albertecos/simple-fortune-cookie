@@ -2,6 +2,8 @@ services:
   backend:
     image: backend_image
     build: ./backend/
+    environment:
+      REDIS_DNS: "localhost"
     ports:
       - "90:9000"
   
