@@ -25,7 +25,7 @@ jobs:
         run: docker compose -f docker-compose.yaml up -d
       
       - name: Test
-        run: go ./frontend/main_test.go
+        run: go test ./frontend/main_test.go
 
   #     - name: Upload artifacts
   #       uses: actions/upload-artifact@v4
