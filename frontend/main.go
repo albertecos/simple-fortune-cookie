@@ -29,7 +29,7 @@ var myClient = &http.Client{Timeout: 10 * time.Second}
 
 func HealthzHandler(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusOK)
-    io.WriteString(w, "healthy")
+    io.WriteString(w, "ok")
 }
 
 func main() {
