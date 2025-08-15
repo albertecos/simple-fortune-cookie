@@ -5,7 +5,7 @@ services:
     depends_on:
       - database
     environment:
-      REDIS_DNS: "localhost"
+      REDIS_DNS: "database"
   
   frontend:
     image: frontend_image
