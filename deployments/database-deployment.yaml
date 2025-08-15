@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: database
+  name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: database
+  template:
+    metadata:
+      labels:
+        run: database
+    spec:
+      containers:
+        - image: redis:latest
+          name: database-container
+      volumes:
+        - name: database_data
+          hostPath:
+            path: /data
+
