@@ -1,12 +1,14 @@
 apiVersion: v1
 kind: Service
-metadata: 
-  name: fortune-cookie-frontend
-spec: 
-  selector: 
-     app: fortune-cookie
-  ports: 
-    - protocol: TCP
-      port: 8080
+metadata:
+  labels:
+    run: frontend
+  name: frontend
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
       targetPort: 8080
-  type: NodePort 
+  selector:
+    run: frontend
+  type: NodePort
