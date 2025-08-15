@@ -26,6 +26,11 @@ jobs:
 
       - name: Build project
         run: docker compose -f docker-compose.yaml up -d
+        
+      - name: Kubernetes Deployment through script
+        run: | 
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+          bash ./deploy.sh
 
       - name: Push images to dockerhub
         run: |
