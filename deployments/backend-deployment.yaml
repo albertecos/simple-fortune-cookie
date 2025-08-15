@@ -17,3 +17,6 @@ spec:
       containers:
         - image: acosmussi/backend_image:latest
           name: backend-container
+          env:
+            - name: REDIS_DNS
+              value: database

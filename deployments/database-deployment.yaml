@@ -14,11 +14,13 @@ spec:
       labels:
         run: database
     spec:
+      volumes:
+        - name: database-data
+          persistentVolumeClaim:
+            claimName: database-data
       containers:
         - image: redis:latest
           name: database-container
-      volumes:
-        - name: database_data
-          hostPath:
-            path: /data
-
+          volumeMounts:
+            - name: database-data
+              mountPath: /data
