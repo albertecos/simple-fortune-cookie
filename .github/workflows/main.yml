@@ -24,8 +24,12 @@ jobs:
       - name: Dockerhub Login
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      - name: Build project
-        run: docker compose -f docker-compose.yaml up -d
+      # - name: Build project
+      #   run: docker compose -f docker-compose.yaml up -d
+      - name: Kubernetes Deployment through script
+        run: | 
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+          bash ./deploy.sh
 
       - name: Push images to dockerhub
         run: |
