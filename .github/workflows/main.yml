@@ -26,18 +26,18 @@ jobs:
 
   TestingFrontend:
     runs-on: ubuntu-lates
-    # needs: [Build]
+    needs: [Build]
     steps:
       - uses: actions/checkout@v5
 
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: frontend/go.mod
+          go-version: '^1.17'
           
       - name: Run tests
         working-directory: ./frontend
-        run: go test ./... -v
+        run: go test ./...
 
         
   #     - name: Performance-test-run
