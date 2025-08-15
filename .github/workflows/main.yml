@@ -21,8 +21,18 @@ jobs:
       - name: Clone down repository
         uses: actions/checkout@v5
 
+      - name: Dockerhub Login
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
       - name: Build project
         run: docker compose -f docker-compose.yaml up -d
+
+      - name: Push images to dockerhub
+        run: |
+          docker tag backend_image:latest ${{ secrets.DOCKERHUB_USERNAME }}/backend_image:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/backend_image:latest
+          docker tag frontend_image:latest ${{ secrets.DOCKERHUB_USERNAME }}/frontend_image:latest
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend_image:latest
 
   TestingFrontend:
     runs-on: ubuntu-latest
