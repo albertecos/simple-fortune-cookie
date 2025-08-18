@@ -30,6 +30,7 @@ jobs:
       - name: Kubernetes Deployment through script
         run: | 
           echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+          chmod +x deploy.sh
           bash ./deploy.sh
 
       - name: Push images to dockerhub
@@ -54,11 +55,16 @@ jobs:
         working-directory: ./frontend
         run: go test ./...
 
-  TestApp:
+  TestingAvailability:
     runs-on: ubuntu-latest
     needs: [Build]
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
+      - name: Get Permission
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
+          chmod +x testing/availabilityTest.sh
+          bash testing/availabilityTest.sh
       - name: Run Test
         run: testing/availabilityTest.sh
