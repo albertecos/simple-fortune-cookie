@@ -1,7 +1,7 @@
 #!/bin/sh
-echo "${KUBECONFIG}" | base64 -d > kubeconfig
+# echo "${KUBECONFIG}" | base64 -d > kubeconfig
 
-export KUBECONFIG=kubeconfig
+# export KUBECONFIG=kubeconfig
 
 #deploying persistent volume
 kubectl apply -f persistentVolume/pv-volume.yaml
@@ -13,4 +13,7 @@ kubectl apply -f deployments/frontend-deployment.yaml
 
 kubectl apply -f services/
 
-rm kubeconfig
+# kubectl port-forward services/frontend-service 8080:8080
+
+
+# rm kubeconfig

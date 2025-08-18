@@ -1,26 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    run: database
-  name: database
+  name: database-deployment
+  labels: 
+    app: database-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: database
+      app: database-deployment
   template:
     metadata:
       labels:
-        run: database
+        app: database-deployment
     spec:
       volumes:
         - name: database-data
           persistentVolumeClaim:
             claimName: database-data
+      
+      securityContext:
+        runAsUser: 0
+
       containers:
         - image: redis:latest
           name: database-container
+          command: ["redis-server", "--appendonly", "yes", "--dir", "/data"]
           volumeMounts:
             - name: database-data
-              mountPath: /data
+              mountPath: "/data"
+          ports:
+            - containerPort: 6379
+          
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

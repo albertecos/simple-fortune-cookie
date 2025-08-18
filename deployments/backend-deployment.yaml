@@ -2,21 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    run: backend
-  name: backend
+    app: backend-deployment
+  name: backend-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: backend
+      app: backend-deployment
   template:
     metadata:
       labels:
-        run: backend
+        app: backend-deployment
     spec:
       containers:
         - image: acosmussi/backend_image:latest
           name: backend-container
           env:
             - name: REDIS_DNS
-              value: database
+              value: database-service
+          ports:  
+            - containerPort: 9000
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

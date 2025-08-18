@@ -2,24 +2,32 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    run: frontend
-  name: frontend
+    app: frontend-deployment
+  name: frontend-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: frontend
+      app: frontend-deployment
   template:
     metadata:
       labels:
-        run: frontend
+        app: frontend-deployment
     spec:
       containers:
         - image: acosmussi/frontend_image:latest
           name: frontend-container
+          ports:
+            - containerPort: 8080
+
           env:
-            - name: BACKEND_HOST
-              value: backend
+            - name: BACKEND_DNS
+              value: backend-service
             - name: BACKEND_PORT
-              value: '9000'
+              value: "9000"
+          
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
 
