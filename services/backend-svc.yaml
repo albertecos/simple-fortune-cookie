@@ -9,6 +9,7 @@ spec:
     - port: 9000
       protocol: TCP
       targetPort: 9000
+      nodePort: 30900
   selector:
     run: backend
-  type: ClusterIP
+  type: NodePort

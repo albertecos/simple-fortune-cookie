@@ -17,6 +17,3 @@ spec:
       containers:
         - image: redis:latest
           name: database-container
-          volumeMounts:
-            - name: database-data
-              mountPath: /data
