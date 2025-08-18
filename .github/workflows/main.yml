@@ -61,10 +61,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
-      - name: Get Permission
+      - name: Get Permission & Run Test
         run: |
           echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
           chmod +x testing/availabilityTest.sh
           bash testing/availabilityTest.sh
-      - name: Run Test
-        run: testing/availabilityTest.sh
