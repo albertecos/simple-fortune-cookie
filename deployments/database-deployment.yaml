@@ -14,10 +14,6 @@ spec:
       labels:
         run: database
     spec:
-      volumes:
-        - name: database-data
-          persistentVolumeClaim:
-            claimName: database-data
       containers:
         - image: redis:latest
           name: database-container
