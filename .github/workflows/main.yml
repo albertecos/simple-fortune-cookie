@@ -63,11 +63,13 @@ jobs:
         uses: actions/checkout@v5
       - name: Kubernetes Deployment through script
         run: | 
+          pwd
           echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
           chmod +x deploy.sh
           bash ./deploy.sh
       - name: Get Permission & Run Test
         run: |
+          pwd
           echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig
           chmod +x testing/availabilityTest.sh
           bash testing/availabilityTest.sh
