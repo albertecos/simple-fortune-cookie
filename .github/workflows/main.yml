@@ -54,7 +54,11 @@ jobs:
         working-directory: ./frontend
         run: go test ./...
 
-        
-  #     - name: Performance-test-run
-  #       run: bash ci/performance-test.sh
-    
+  TestApp:
+    runs-on: ubuntu-latest
+    needs: [Build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+      - name: Run Test
+        run: testing/availabilityTest.sh
