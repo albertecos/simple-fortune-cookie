@@ -2,8 +2,10 @@ services:
   backend:
     image: backend_image
     build: ./backend/
+    depends_on:
+      - database
     environment:
-      REDIS_DNS: "localhost"
+      REDIS_DNS: "database"
   
   frontend:
     image: frontend_image
@@ -17,3 +19,11 @@ services:
       - backend
     ports:
       - "8080:8080"
+
+  database:
+    image: redis:latest
+    volumes:
+      - redis_data:/data
+
+volumes: 
+  redis_data:

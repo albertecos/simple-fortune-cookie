@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: database
+  name: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: database
+  template:
+    metadata:
+      labels:
+        run: database
+    spec:
+      volumes:
+        - name: database-data
+          persistentVolumeClaim:
+            claimName: database-data
+      containers:
+        - image: redis:latest
+          name: database-container
+          volumeMounts:
+            - name: database-data
+              mountPath: /data
